@@ -1,0 +1,12 @@
+title: Srujan
+description: Research in World Models, Representation Learning, and Causal Structure
+theme: jekyll-theme-minimal
+
+markdown: kramdown
+
+kramdown:
+  math_engine: mathjax
+  input: GFM
+
+plugins:
+  - jekyll-feed
