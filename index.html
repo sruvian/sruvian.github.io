@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Srujan's Research</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500&family=DM+Mono:wght@300;400&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0c10;
+      --surface: #111117;
+      --surface-2: #16161e;
+      --border: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(255, 255, 255, 0.14);
+      --text: #dddae8;
+      --text-secondary: #9995ad;
+      --muted: #9995ad;
+      --accent: #8b7cf6;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .ambient {
+      position: fixed;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 124, 246, 0.07) 0%, transparent 65%);
+      top: -250px;
+      right: -200px;
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.1rem 2.5rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      background: rgba(12, 12, 16, 0.8);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 140px 0 80px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    h1 {
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      font-size: clamp(2.8rem, 5.5vw, 4rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.5s 0.08s ease both;
+    }
+
+    h1 em {
+      font-style: italic;
+      /* color: var(--accent); */
+    }
+
+    .hero-desc {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.5s 0.16s ease both;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.5s 0.22s ease both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.25rem;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      color: var(--text);
+      border-color: var(--border-hover);
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    /* Focus panel */
+    .focus-panel {
+      animation: fadeUp 0.5s 0.16s ease both;
+      padding-top: 0.5rem;
+    }
+
+    .focus-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .focus-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .focus-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--surface);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .focus-list li:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-2);
+    }
+
+    .focus-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .focus-name {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .focus-desc {
+      font-size: 12px;
+      color: var(--muted);
+      display: block;
+      margin-top: 1px;
+      line-height: 1.5;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .section-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      font-size: clamp(1.7rem, 3vw, 2.2rem);
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+      line-height: 1.15;
+    }
+
+    /* About */
+    .about-body {
+      margin-top: 2rem;
+    }
+
+    .prose p {
+      color: var(--text-secondary);
+      font-size: 14.5px;
+      line-height: 1.85;
+      margin-bottom: 0.9rem;
+      max-width: 620px;
+    }
+
+    .prose p:last-child {
+      margin-bottom: 0;
+    }
+
+    .prose strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Research */
+    .interests-grid {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .interest-item {
+      background: var(--surface);
+      padding: 1.5rem 1.75rem;
+      transition: background 0.2s;
+    }
+
+    .interest-item:hover {
+      background: var(--surface-2);
+    }
+
+    .interest-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .interest-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* Projects */
+    .projects-list {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .project-item {
+      background: var(--surface);
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+      transition: background 0.2s;
+    }
+
+    .project-item:hover {
+      background: var(--surface-2);
+    }
+
+    .project-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .project-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 480px;
+    }
+
+    .project-link {
+      flex-shrink: 0;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.7rem;
+      border-radius: 3px;
+      transition: all 0.2s;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
+    .project-link:hover {
+      color: var(--text);
+      border-color: var(--border-hover);
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 1.75rem 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer span {
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding: 110px 0 60px;
+      }
+
+      .interests-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-item {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .container {
+        padding: 0 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="ambient"></div>
+
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-left">
+        <!-- TO EDIT YOUR NAME: change "Srujan" below to your full name -->
+        <p class="hero-eyebrow">Srujan Sardeshmukh</p>
+        <h1>World Models<br />& <em>Causal</em> AI</h1>
+        <p class="hero-desc">
+          I study how learning systems can acquire structured, causal representations
+          of their environment — models that generalize beyond the data they were trained on.
+        </p>
+        <div class="hero-links">
+          <a href="https://github.com/sruvian" class="btn btn-outline" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="focus-panel">
+        <p class="focus-label">Research focus</p>
+        <ul class="focus-list">
+          <li>
+            <span class="focus-num">01</span>
+            <div>
+              <span class="focus-name">World Models</span>
+              <span class="focus-desc">Internal simulation of environment dynamics for planning and
+                generalization</span>
+            </div>
+          </li>
+          <li>
+            <span class="focus-num">02</span>
+            <div>
+              <span class="focus-name">Causal Structure</span>
+              <span class="focus-desc">Learning causal graphs and interventional distributions from observations</span>
+            </div>
+          </li>
+          <li>
+            <span class="focus-num">03</span>
+            <div>
+              <span class="focus-name">Representation Learning</span>
+              <span class="focus-desc">Disentangled, compositional latent spaces with structural inductive biases</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- About -->
+    <section id="about">
+      <p class="section-eyebrow">About</p>
+      <h2>Background</h2>
+      <div class="about-body">
+        <div class="prose">
+          <p>
+            I work on machine learning systems that learn internal models of the world.
+            Rather than treating prediction as an end in itself, I am interested in how learned
+            representations can capture the structure of dynamical environments.
+          </p>
+
+          <p>
+            My current interests lie in world models, representation learning, and causal structure.
+            These areas intersect with probabilistic generative modeling and model-based reinforcement learning,
+            where learned models must represent not only correlations in data but also the mechanisms that generate it.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Projects -->
+    <section id="projects">
+      <p class="section-eyebrow">Projects</p>
+      <h2>Work</h2>
+      <!-- PROJECTS LIST — each project is one <div class="project-item"> block.
+           Edit the name, description, and link href as needed.
+           To add a project: copy a block and paste it inside .projects-list.
+           To remove one: delete the whole block. -->
+      <div class="projects-list">
+        <div class="project-item">
+          <div>
+            <div class="project-name">WorldSim</div>
+            <div class="project-desc">
+              An experimental framework for studying world models in simple dynamical environments.
+              Current work focuses on learning latent dynamics in systems such as Pendulum and CartPole,
+              and investigating how representations learned in one environment may transfer to another.
+              The goal is to probe how neural networks internalize structure in physical systems. More on this coming
+              soon.
+            </div>
+          </div>
+          <a href="https://github.com/sruvian" class="project-link" target="_blank">GitHub ↗</a>
+        </div>
+
+        <div class="project-item">
+          <div>
+            <div class="project-name">nanograd</div>
+            <div class="project-desc">
+              A minimal automatic differentiation engine built from scratch in Python.
+              Inspired by Andrej Karpathy’s micrograd, this project implements reverse-mode
+              autodiff over a dynamically constructed computation graph and a small neural
+              network library on top. The implementation is being extended with support for
+              tensor broadcasting and convolution operations to better understand the
+              mechanics underlying modern deep learning frameworks. More on this coming soon.
+            </div>
+          </div>
+          <a href="https://github.com/sruvian" class="project-link" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <!-- TO EDIT YOUR NAME in the footer: change "Srujan" below -->
+      <span>Srujan</span>
+      <span>World Models & Causal AI</span>
+    </footer>
+
+  </div>
+</body>
+
+</html>
