@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Srujan's Research</title>
+  <title>Srujan Sardeshmukh</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -19,7 +19,7 @@
       --border-hover: rgba(255, 255, 255, 0.14);
       --text: #dddae8;
       --text-secondary: #9995ad;
-      --muted: #9995ad;
+      --muted: #5a5770;
       --accent: #8b7cf6;
     }
 
@@ -75,7 +75,6 @@
       padding: 0 2.5rem;
     }
 
-    /* Nav */
     nav {
       position: fixed;
       top: 0;
@@ -110,7 +109,6 @@
       color: var(--text);
     }
 
-    /* Hero */
     .hero {
       padding: 140px 0 80px;
       display: grid;
@@ -142,7 +140,7 @@
 
     h1 em {
       font-style: italic;
-      /* color: var(--accent); */
+      color: inherit;
     }
 
     .hero-desc {
@@ -186,7 +184,6 @@
       background: rgba(255, 255, 255, 0.025);
     }
 
-    /* Focus panel */
     .focus-panel {
       animation: fadeUp 0.5s 0.16s ease both;
       padding-top: 0.5rem;
@@ -274,7 +271,6 @@
       line-height: 1.15;
     }
 
-    /* About */
     .about-body {
       margin-top: 2rem;
     }
@@ -296,42 +292,6 @@
       font-weight: 500;
     }
 
-    /* Research */
-    .interests-grid {
-      margin-top: 2rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .interest-item {
-      background: var(--surface);
-      padding: 1.5rem 1.75rem;
-      transition: background 0.2s;
-    }
-
-    .interest-item:hover {
-      background: var(--surface-2);
-    }
-
-    .interest-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 0.4rem;
-    }
-
-    .interest-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    /* Projects */
     .projects-list {
       margin-top: 2rem;
       display: flex;
@@ -366,7 +326,7 @@
 
     .project-desc {
       font-size: 13px;
-      color: var(--muted);
+      color: var(--text-secondary);
       line-height: 1.65;
       max-width: 480px;
     }
@@ -388,6 +348,68 @@
     .project-link:hover {
       color: var(--text);
       border-color: var(--border-hover);
+    }
+
+    /* Writing */
+    .writing-list {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .writing-item {
+      background: var(--surface);
+      padding: 1.5rem 1.75rem;
+      text-decoration: none;
+      display: block;
+      transition: background 0.2s;
+    }
+
+    .writing-item:hover {
+      background: var(--surface-2);
+    }
+
+    .writing-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .writing-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(139, 124, 246, 0.25);
+      padding: 0.15rem 0.5rem;
+      border-radius: 2px;
+    }
+
+    .writing-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .writing-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .writing-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 560px;
     }
 
     footer {
@@ -425,10 +447,6 @@
         padding: 110px 0 60px;
       }
 
-      .interests-grid {
-        grid-template-columns: 1fr;
-      }
-
       .project-item {
         flex-direction: column;
         gap: 0.75rem;
@@ -461,7 +479,6 @@
     <!-- Hero -->
     <div class="hero">
       <div class="hero-left">
-        <!-- TO EDIT YOUR NAME: change "Srujan" below to your full name -->
         <p class="hero-eyebrow">Srujan Sardeshmukh</p>
         <h1>World Models<br />& <em>Causal</em> AI</h1>
         <p class="hero-desc">
@@ -515,7 +532,6 @@
             Rather than treating prediction as an end in itself, I am interested in how learned
             representations can capture the structure of dynamical environments.
           </p>
-
           <p>
             My current interests lie in world models, representation learning, and causal structure.
             These areas intersect with probabilistic generative modeling and model-based reinforcement learning,
@@ -531,45 +547,40 @@
     <section id="projects">
       <p class="section-eyebrow">Projects</p>
       <h2>Work</h2>
-      <!-- PROJECTS LIST — each project is one <div class="project-item"> block.
-           Edit the name, description, and link href as needed.
-           To add a project: copy a block and paste it inside .projects-list.
-           To remove one: delete the whole block. -->
       <div class="projects-list">
+
         <div class="project-item">
           <div>
             <div class="project-name">WorldSim</div>
             <div class="project-desc">
-              An experimental framework for studying world models in simple dynamical environments.
-              Current work focuses on learning latent dynamics in systems such as Pendulum and CartPole,
-              and investigating how representations learned in one environment may transfer to another.
-              The goal is to probe how neural networks internalize structure in physical systems. More on this coming
-              soon.
+              Investigating whether neural world models trained on pendulum dynamics spontaneously
+              encode angular dynamics in separable latent subspaces, and whether those representations
+              transfer to CartPole. Includes a four-level probe suite and few-shot transfer protocols.
             </div>
           </div>
-          <a href="https://github.com/sruvian" class="project-link" target="_blank">GitHub ↗</a>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;flex-shrink:0;margin-top:2px;">
+            <a href="https://github.com/sruvian/world-models-exp0" class="project-link" target="_blank">GitHub ↗</a>
+            <a href="https://github.com/sruvian/research-notes/blob/main/pdf/world_models_exp0.pdf" class="project-link" target="_blank">Proposal ↗</a>
+          </div>
         </div>
 
         <div class="project-item">
           <div>
             <div class="project-name">nanograd</div>
             <div class="project-desc">
-              A minimal automatic differentiation engine built from scratch in Python.
-              Inspired by Andrej Karpathy’s micrograd, this project implements reverse-mode
-              autodiff over a dynamically constructed computation graph and a small neural
-              network library on top. The implementation is being extended with support for
-              tensor broadcasting and convolution operations to better understand the
-              mechanics underlying modern deep learning frameworks. More on this coming soon.
+              A minimal deep learning framework built from scratch in Python. Implements reverse-mode
+              autodiff, tensor operations, neural network layers, convolutional layers, and
+              gradient-based optimization including BFGS with Wolfe line search and numerical Hessians.
             </div>
           </div>
-          <a href="https://github.com/sruvian" class="project-link" target="_blank">GitHub ↗</a>
+          <a href="https://github.com/sruvian/nanograd" class="project-link" target="_blank">GitHub ↗</a>
         </div>
+
       </div>
     </section>
 
     <footer>
-      <!-- TO EDIT YOUR NAME in the footer: change "Srujan" below -->
-      <span>Srujan</span>
+      <span>Srujan Sardeshmukh</span>
       <span>World Models & Causal AI</span>
     </footer>
 
